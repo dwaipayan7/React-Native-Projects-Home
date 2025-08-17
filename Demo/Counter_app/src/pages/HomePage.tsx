@@ -3,11 +3,21 @@ import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Screens } from '../types/navigationTypes';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '../components/queryOptions/redux/store/store';
+import { RootState } from '@reduxjs/toolkit/query';
+import { toggleTheme } from '../components/queryOptions/redux/slices/theme';
 
 type HomePageNavProp = NativeStackNavigationProp<Screens, 'HomePage'>;
 
+//{navigation}
 const HomePage = () => {
 
+    const dispatch = useDispatch<AppDispatch>();
+
+    const darkMode = useSelector((state : any) => state.theme.darkMode);
+
+    // const navigation = useNavigation<HomePageNavProp>();
     const navigation = useNavigation<HomePageNavProp>();
 
     const [count, setCount] = useState(0);
@@ -18,21 +28,27 @@ const HomePage = () => {
 
     const decrement = () => {
         if (count !== 0) {
-            setCount(prev => prev - 1)
+            setCount(prev => prev - 1);
         }
     }
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: darkMode ? "#121212" : "#f0f0f0" }]}>
             <View style={{ marginBottom: 15 }}>
-                <Text style={styles.title}>Counter App</Text>
+                <Text style={[styles.title, { color: darkMode ? "#fff" : "#000", fontSize: 20 }]}>Counter App</Text>
             </View>
 
-            <Text style={styles.count}>{count}</Text>
+            <Text style={[styles.count, { color: darkMode ? "#fff" : "#000", fontSize: 20 }]}>{count}</Text>
             <View style={{ gap: 12 }}>
                 <Button title='Increment' onPress={increment} />
                 <Button title='Decrement' onPress={decrement} />
-                <Button title='Main Page' onPress={() => navigation.navigate('MainPage')} />
+                <Button title='Main Page' onPress={() => {
+                    console.log(navigation.navigate('MainPage'));
+                    // navigation.navigate('MainPage')
+                    navigation.navigate('MainPage')
+                    
+                } } />
+                <Button title='Mode' onPress={() => dispatch(toggleTheme())} />
 
             </View>
 
