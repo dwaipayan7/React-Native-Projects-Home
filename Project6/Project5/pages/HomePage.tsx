@@ -3,19 +3,22 @@ import React from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamsList } from '../navigation/AppNavigation'
 
-interface HomeScreenProps{
+interface HomeScreenProps {
     navigation: NativeStackNavigationProp<RootStackParamsList, 'HomePage'>;
 }
 
-const HomePage = ({navigation}: HomeScreenProps) => {
-  return (
-    <View style = {styles.container}>
-      <Text>HomePage</Text>
-      <View>
-        <Button title = 'Profile Page' onPress={() => navigation.navigate('ProfilePage')} />
-      </View>
-    </View>
-  )
+const HomePage = ({ navigation }: HomeScreenProps) => {
+    return (
+        <View style={styles.container}>
+            <Text>HomePage</Text>
+            <View>
+                <Button title='Profile Page' onPress={() => navigation.navigate('ProfilePage', {
+                    name: "Dwaipayan",
+                    email: 'abc@gmail.com'
+                })} />
+            </View>
+        </View>
+    )
 }
 
 export default HomePage

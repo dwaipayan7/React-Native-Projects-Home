@@ -7,7 +7,10 @@ import ProfilePage from '../pages/ProfilePage'
 
 export type RootStackParamsList = {
     HomePage: undefined,
-    ProfilePage: undefined
+    ProfilePage: {
+        name: string,
+        email: string
+    }
 }
 
 const Stack = createNativeStackNavigator();
